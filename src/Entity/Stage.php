@@ -20,34 +20,43 @@ class Stage
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=255)
      */
     private $intitule;
 
     /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $mission;
+    private $description;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="date")
      */
-    private $adresseMail;
+    private $duree;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Formation::class, inversedBy="Stages")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $formations;
+    private $competenceRequise;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $emailEntreprise;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Formation::class, inversedBy="stages")
+     */
+    private $formation;
 
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="stages")
-     * @ORM\JoinColumn(nullable=false)
      */
-    private $entreprises;
+    private $entreprise;
 
     public function __construct()
     {
-        $this->formations = new ArrayCollection();
+        $this->formation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,26 +76,50 @@ class Stage
         return $this;
     }
 
-    public function getMission(): ?string
+    public function getDescription(): ?string
     {
-        return $this->mission;
+        return $this->description;
     }
 
-    public function setMission(?string $mission): self
+    public function setDescription(string $description): self
     {
-        $this->mission = $mission;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getAdresseMail(): ?string
+    public function getDuree(): ?\DateTimeInterface
     {
-        return $this->adresseMail;
+        return $this->duree;
     }
 
-    public function setAdresseMail(?string $adresseMail): self
+    public function setDuree(\DateTimeInterface $duree): self
     {
-        $this->adresseMail = $adresseMail;
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getCompetenceRequise(): ?string
+    {
+        return $this->competenceRequise;
+    }
+
+    public function setCompetenceRequise(?string $competenceRequise): self
+    {
+        $this->competenceRequise = $competenceRequise;
+
+        return $this;
+    }
+
+    public function getEmailEntreprise(): ?string
+    {
+        return $this->emailEntreprise;
+    }
+
+    public function setEmailEntreprise(string $emailEntreprise): self
+    {
+        $this->emailEntreprise = $emailEntreprise;
 
         return $this;
     }
@@ -94,15 +127,15 @@ class Stage
     /**
      * @return Collection|Formation[]
      */
-    public function getFormations(): Collection
+    public function getFormation(): Collection
     {
-        return $this->formations;
+        return $this->formation;
     }
 
     public function addFormation(Formation $formation): self
     {
-        if (!$this->formations->contains($formation)) {
-            $this->formations[] = $formation;
+        if (!$this->formation->contains($formation)) {
+            $this->formation[] = $formation;
         }
 
         return $this;
@@ -110,25 +143,20 @@ class Stage
 
     public function removeFormation(Formation $formation): self
     {
-        $this->formations->removeElement($formation);
+        $this->formation->removeElement($formation);
 
         return $this;
     }
 
-    public function getEntreprises(): ?Entreprise
+    public function getEntreprise(): ?Entreprise
     {
-        return $this->entreprises;
+        return $this->entreprise;
     }
 
-    public function setEntreprises(?Entreprise $entreprises): self
+    public function setEntreprise(?Entreprise $entreprise): self
     {
-        $this->entreprises = $entreprises;
+        $this->entreprise = $entreprise;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-      return $this->getIntitule();
     }
 }
