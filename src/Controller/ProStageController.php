@@ -27,20 +27,60 @@ class ProStageController extends AbstractController
        return $this->render('pro_stage/index.html.twig', ['stages' => $stages]);
     }
 
-     /**
+    /**
      * @Route("/entreprises", name="entreprises")
      */
-    public function afficherEntreprises(): Response
+    public function entreprises(): Response
     {
-        return $this->render('pro_stage/entreprises.html.twig');
+        // On récupère le repository de l'entité entreprise
+        $repositoryEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
+
+        // Récupérer toutes les entreprises enregistrées en BD
+        $entreprises = $repositoryEntreprise->findAll();
+
+        return $this->render('pro_stage/entreprises.html.twig', ['entreprises' => $entreprises]);
     }
 
     /**
      * @Route("/formations", name="formations")
      */
+    public function formations(): Response
+    {
+        // On récupère le repository de l'entité formation
+        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
+
+        // Récupérer toutes les entreprises enregistrées en BD
+        $formations = $repositoryFormation->findAll();
+        return $this->render('pro_stage/formations.html.twig', ['formations' => $formations]);
+    }
+
+     /**
+     * @Route("/entreprises/{id}", name="stageParEntreprises")
+     */
+    public function afficherEntreprises(): Response
+    {
+   
+       $repositoryEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
+
+       $entreprise = $repositoryEntreprise->find($id);
+
+       return $this->render('pro_stage/afficherParEntreprises.html.twig',
+                             ['entreprise' => $entreprise]);
+    }
+
+    /**
+     * @Route("/formations/{id}", name="stageParFormations")
+     */
     public function afficherFormations(): Response
     {
-        return $this->render('pro_stage/formations.html.twig');
+        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
+
+        // Récupérer la formation
+        $formation = $repositoryFormation->find($id);
+
+        // On envoie ces données à la page
+        return $this->render('pro_stage/afficherParFormations.html.twig',
+                              ['formation' => $formation]);
     }
 
     /**
