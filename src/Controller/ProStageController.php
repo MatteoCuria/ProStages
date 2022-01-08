@@ -24,7 +24,7 @@ class ProStageController extends AbstractController
         $stages = $repositoryStage->findAll();
 
        // Envoyer les stages récupérés à la vue chargée de les afficher
-       return $this->render('pro_stage/index.html.twig', ['ressource' => $ressources]);
+       return $this->render('pro_stage/index.html.twig', ['stages' => $stages]);
     }
 
      /**
