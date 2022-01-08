@@ -32,6 +32,11 @@ class Stage
     /**
      * @ORM\Column(type="date")
      */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $duree;
 
     /**
@@ -47,7 +52,7 @@ class Stage
     /**
      * @ORM\ManyToMany(targetEntity=Formation::class, inversedBy="stages")
      */
-    private $formation;
+    private $formations;
 
     /**
      * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="stages")
@@ -88,12 +93,24 @@ class Stage
         return $this;
     }
 
-    public function getDuree(): ?\DateTimeInterface
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->dateDebut;
+    }
+
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDuree(): ?int
     {
         return $this->duree;
     }
 
-    public function setDuree(\DateTimeInterface $duree): self
+    public function setDuree(int $duree): self
     {
         $this->duree = $duree;
 
@@ -127,15 +144,15 @@ class Stage
     /**
      * @return Collection|Formation[]
      */
-    public function getFormation(): Collection
+    public function getFormations(): Collection
     {
-        return $this->formation;
+        return $this->formations;
     }
 
     public function addFormation(Formation $formation): self
     {
-        if (!$this->formation->contains($formation)) {
-            $this->formation[] = $formation;
+        if (!$this->formations->contains($formation)) {
+            $this->formations[] = $formation;
         }
 
         return $this;
@@ -143,7 +160,7 @@ class Stage
 
     public function removeFormation(Formation $formation): self
     {
-        $this->formation->removeElement($formation);
+        $this->formations->removeElement($formation);
 
         return $this;
     }
