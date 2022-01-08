@@ -17,7 +17,7 @@ class ProStageController extends AbstractController
      */
     public function index(): Response
     {
-       // Récupérer le perository de l'entité Stage
+       // Récupérer le rerository de l'entité Stage
        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
 
        // Récupérer les ressources enregistrées en BD
@@ -32,15 +32,15 @@ class ProStageController extends AbstractController
      */
     public function afficherEntreprises(): Response
     {
-        return $this->render('pro_stage/afficherParEntreprises.html.twig');
+        return $this->render('pro_stage/entreprises.html.twig');
     }
 
     /**
-     * @Route("/Formations", name="formations")
+     * @Route("/formations", name="formations")
      */
     public function afficherFormations(): Response
     {
-        return $this->render('pro_stage/afficherParFormations.html.twig');
+        return $this->render('pro_stage/formations.html.twig');
     }
 
     /**
