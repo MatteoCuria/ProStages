@@ -20,6 +20,7 @@
         <div class="card-body">
           <h5 class="card-title">{{entrepriseCourante.nom}}</h5>
           <p class="card-text">{{entrepriseCourante.adresse}}<br />{{entrepriseCourante.siteWeb}}</p>
+          <a href="{{path('stageParEntreprises', {'id': entrepriseCourante.id})}}" class="btn btn-primary">Consulter les stages</a>
         </div>
       </div>
 

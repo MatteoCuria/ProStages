@@ -64,8 +64,7 @@ class ProStageController extends AbstractController
 
        $entreprise = $repositoryEntreprise->find($id);
 
-       return $this->render('pro_stage/afficherParEntreprises.html.twig',
-                             ['entreprise' => $entreprise]);
+       return $this->render('pro_stage/afficherParEntreprises.html.twig', ['entreprise' => $entreprise]);
     }
 
     /**
@@ -79,8 +78,7 @@ class ProStageController extends AbstractController
         $formation = $repositoryFormation->find($id);
 
         // On envoie ces données à la page
-        return $this->render('pro_stage/afficherParFormations.html.twig',
-                              ['formation' => $formation]);
+        return $this->render('pro_stage/afficherParFormations.html.twig', ['formation' => $formation]);
     }
 
     /**
@@ -88,7 +86,10 @@ class ProStageController extends AbstractController
      */
     public function afficherDescriptifStage($id): Response
     {
-        return $this->render('pro_stage/afficherDescriptifStage.html.twig',
-      ['idStage' => $id]);
+        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
+
+        $stage = $repositoryStage->find($id);
+
+        return $this->render('pro_stage/afficherDescriptifStage.html.twig', ['stage' => $stage]);
     }
 }
